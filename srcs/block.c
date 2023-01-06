@@ -12,12 +12,12 @@
 
 #include "malloc.h"
 
-static void		init_block(t_block *block, size_t size)
+static void	init_block(t_block *block, size_t size)
 {
 	block->prev = NULL;
 	block->next = NULL;
 	block->data_size = size;
-	block-> freed = false;
+	block->freed = false;
 }
 
 static t_block	*get_last_block(t_block *block)
@@ -27,7 +27,7 @@ static t_block	*get_last_block(t_block *block)
 	return (block);
 }
 
-void			find_block(size_t size, t_heap **heap_result, t_block **block_result)
+void	find_block(size_t size, t_heap **heap_result, t_block **block_result)
 {
 	t_heap		*heap;
 	t_block		*block;
@@ -54,7 +54,7 @@ void			find_block(size_t size, t_heap **heap_result, t_block **block_result)
 	}
 }
 
-void			cut_block(t_block *block, size_t size, t_heap *heap)
+void	cut_block(t_block *block, size_t size, t_heap *heap)
 {
 	t_block	*block_remainder;
 
@@ -69,7 +69,7 @@ void			cut_block(t_block *block, size_t size, t_heap *heap)
 	heap->block_count++;
 }
 
-void			*append_new_block(t_heap *heap, size_t size)
+void	*append_new_block(t_heap *heap, size_t size)
 {
 	t_block	*new_block;
 	t_block	*last_block;
@@ -79,7 +79,8 @@ void			*append_new_block(t_heap *heap, size_t size)
 	if (heap->block_count > 0)
 	{
 		last_block = get_last_block(new_block);
-		new_block = (t_block *)(SHIFT_BLOCK_META(last_block) + last_block->data_size);
+		new_block = (t_block *)(SHIFT_BLOCK_META(last_block)
+				+ last_block->data_size);
 	}
 	init_block(new_block, size);
 	if (heap->block_count > 0)
@@ -92,7 +93,8 @@ void			*append_new_block(t_heap *heap, size_t size)
 	return ((void *)SHIFT_BLOCK_META(new_block));
 }
 
-void			search_block(t_heap *heap_list, void *ptr, t_heap **heap_result, t_block **block_result)
+void	search_block(t_heap *heap_list, void *ptr,
+			t_heap **heap_result, t_block **block_result)
 {
 	t_heap	*heap;
 	t_block	*block;
@@ -117,7 +119,7 @@ void			search_block(t_heap *heap_list, void *ptr, t_heap **heap_result, t_block 
 	}
 }
 
-t_block			*merge_block(t_heap *heap, t_block *block)
+t_block	*merge_block(t_heap *heap, t_block *block)
 {
 	if (!heap || !block)
 		return (NULL);
@@ -138,5 +140,5 @@ t_block			*merge_block(t_heap *heap, t_block *block)
 		heap->block_count--;
 		return (block->prev);
 	}
-	return block;
+	return (block);
 }

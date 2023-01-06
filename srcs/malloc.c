@@ -21,14 +21,12 @@ static void	*malloc_impl(size_t size)
 	if (!size)
 		return (NULL);
 	size = (size + 15) & ~15;
-	/* Trying to find allocated block */
 	find_block(size, &heap, &block);
 	if (heap && block)
 	{
 		cut_block(block, size, heap);
 		return (SHIFT_BLOCK_META(block));
 	}
-	/* Or find a heap and append new block */
 	heap = get_heap(size);
 	if (!heap)
 		return (NULL);
@@ -36,7 +34,7 @@ static void	*malloc_impl(size_t size)
 	return (result);
 }
 
-void		*malloc(size_t size)
+void	*malloc(size_t size)
 {
 	void	*result;
 

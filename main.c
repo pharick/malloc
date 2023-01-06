@@ -15,7 +15,9 @@
 
 int	main(void)
 {
-	char *str = (char *)malloc(6);
+	char	*str;
+
+	str = (char *)malloc(6);
 	str[0] = 'h';
 	str[1] = 'e';
 	str[2] = 'l';

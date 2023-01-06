@@ -35,11 +35,10 @@ static void	free_impl(void *ptr)
 	}
 }
 
-void		free(void *ptr)
+void	free(void *ptr)
 {
 	ft_putstr("free\n");
 	pthread_mutex_lock(&g_ft_malloc_mutex);
 	free_impl(ptr);
 	pthread_mutex_unlock(&g_ft_malloc_mutex);
 }
-

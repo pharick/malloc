@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_MALLOC_H
-# define FT_MALLOC_H
+#ifndef MALLOC_H
+# define MALLOC_H
 
 // # include <stdlib.h>
 # include <sys/mman.h>
@@ -58,13 +58,15 @@ t_heap			*g_heap_list;
 
 t_heap_type		get_heap_type(size_t block_size);
 t_heap			*get_heap(const size_t block_size);
-void			find_block(size_t size, t_heap **heap_result, t_block **block_result);
+void			find_block(size_t size, t_heap **heap_result,
+					t_block **block_result);
 void			cut_block(t_block *block, size_t size, t_heap *heap);
 void			*append_new_block(t_heap *heap, size_t size);
-void			search_block(t_heap *heap_list, void *ptr, t_heap **heap_result, t_block **block_result);
+void			search_block(t_heap *heap_list, void *ptr,
+					t_heap **heap_result, t_block **block_result);
 t_block			*merge_block(t_heap *heap, t_block *block);
 void			delete_heap(t_heap *heap);
 void			*malloc(size_t size);
 void			free(void *ptr);
 
-#endif //FT_MALLOC_H
+#endif //MALLOC_H

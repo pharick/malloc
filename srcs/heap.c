@@ -12,7 +12,7 @@
 
 #include "malloc.h"
 
-t_heap_type		get_heap_type(size_t block_size)
+t_heap_type	get_heap_type(size_t block_size)
 {
 	if (block_size <= (size_t)TINY_BLOCK_SIZE)
 		return (TINY);
@@ -33,7 +33,8 @@ static size_t	get_heap_size(size_t block_size)
 	return (block_size + sizeof(t_heap) + sizeof(t_block));
 }
 
-static t_heap	*find_allocated_heap(const t_heap *heap_list, const t_heap_type type, const size_t size)
+static t_heap	*find_allocated_heap(const t_heap *heap_list,
+					const t_heap_type type, const size_t size)
 {
 	t_heap	*heap;
 
@@ -45,20 +46,20 @@ static t_heap	*find_allocated_heap(const t_heap *heap_list, const t_heap_type ty
 		heap = heap->next;
 	}
 	return (NULL);
-
 }
 
 static t_heap	*allocate_heap(t_heap_type type, size_t block_size)
 {
 	struct rlimit	rlp;
-	size_t		heap_size;
-	t_heap		*heap;
+	size_t			heap_size;
+	t_heap			*heap;
 
 	heap_size = get_heap_size(block_size);
 	getrlimit(RLIMIT_DATA, &rlp);
 	if (heap_size > rlp.rlim_max)
 		return (NULL);
-	heap = (t_heap *)mmap(NULL, heap_size, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANON, -1, 0);
+	heap = (t_heap *)mmap(NULL, heap_size, PROT_READ | PROT_WRITE,
+			MAP_PRIVATE | MAP_ANON, -1, 0);
 	if (heap == MAP_FAILED)
 		return (NULL);
 	ft_bzero(heap, sizeof(heap));
@@ -68,13 +69,14 @@ static t_heap	*allocate_heap(t_heap_type type, size_t block_size)
 	return (heap);
 }
 
-t_heap		*get_heap(const size_t block_size)
+t_heap	*get_heap(const size_t block_size)
 {
 	t_heap_type	heap_type;
 	t_heap		*heap;
 
 	heap_type = get_heap_type(block_size);
-	heap = find_allocated_heap(g_heap_list, heap_type, block_size + sizeof(t_block));
+	heap = find_allocated_heap(g_heap_list, heap_type,
+			block_size + sizeof(t_block));
 	if (!heap)
 	{
 		heap = allocate_heap(heap_type, block_size);
@@ -84,7 +86,6 @@ t_heap		*get_heap(const size_t block_size)
 		if (heap-> next)
 			heap->next->prev = heap;
 		g_heap_list = heap;
-
 	}
 	return (heap);
 }
@@ -112,7 +113,7 @@ static bool	is_last_preallocated(t_heap *heap)
 	return (true);
 }
 
-void		delete_heap(t_heap *heap)
+void	delete_heap(t_heap *heap)
 {
 	if (heap->prev)
 		heap->prev->next = heap->next;
