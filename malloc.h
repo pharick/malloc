@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_malloc.h                                        :+:      :+:    :+:   */
+/*   malloc.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbelva <cbelva@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -13,7 +13,7 @@
 #ifndef MALLOC_H
 # define MALLOC_H
 
-// # include <stdlib.h>
+# include <unistd.h>
 # include <sys/mman.h>
 # include <pthread.h>
 # include <stdbool.h>
@@ -33,7 +33,7 @@ typedef enum e_heap_type
 	TINY,
 	SMALL,
 	LARGE
-}				t_heap_type;
+}						t_heap_type;
 
 typedef struct s_heap
 {
@@ -43,7 +43,7 @@ typedef struct s_heap
 	size_t			total_size;
 	size_t			free_size;
 	size_t			block_count;
-}				t_heap;
+}						t_heap;
 
 typedef struct s_block
 {
@@ -51,22 +51,23 @@ typedef struct s_block
 	struct s_block	*next;
 	size_t			data_size;
 	bool			freed;
-}				t_block;
+}						t_block;
 
-pthread_mutex_t	g_ft_malloc_mutex;
-t_heap			*g_heap_list;
+extern pthread_mutex_t	g_ft_malloc_mutex;
+extern t_heap			*g_heap_list;
 
-t_heap_type		get_heap_type(size_t block_size);
-t_heap			*get_heap(const size_t block_size);
-void			find_block(size_t size, t_heap **heap_result,
-					t_block **block_result);
-void			cut_block(t_block *block, size_t size, t_heap *heap);
-void			*append_new_block(t_heap *heap, size_t size);
-void			search_block(t_heap *heap_list, void *ptr,
-					t_heap **heap_result, t_block **block_result);
-t_block			*merge_block(t_heap *heap, t_block *block);
-void			delete_heap(t_heap *heap);
-void			*malloc(size_t size);
-void			free(void *ptr);
+t_heap_type				get_heap_type(size_t block_size);
+t_heap					*get_heap(const size_t block_size);
+void					find_block(size_t size, t_heap **heap_result,
+							t_block **block_result);
+void					cut_block(t_block *block, size_t size, t_heap *heap);
+void					*append_new_block(t_heap *heap, size_t size);
+void					search_block(t_heap *heap_list, void *ptr,
+							t_heap **heap_result, t_block **block_result);
+t_block					*merge_block(t_heap *heap, t_block *block);
+void					delete_heap(t_heap *heap);
+void					*malloc(size_t size);
+void					free(void *ptr);
+void					show_alloc_mem(void);
 
-#endif //MALLOC_H
+#endif // MALLOC_H

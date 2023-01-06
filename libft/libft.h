@@ -13,8 +13,8 @@
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# include <stdlib.h>
 # include <stddef.h>
-# include "gnl/get_next_line.h"
 
 typedef struct s_list
 {
@@ -83,5 +83,6 @@ int				ft_tokens_len(char **tokens);
 void			**ft_lst_to_array(t_list *lst);
 void			ft_lst_remove_if(t_list **begin_list, void *data_ref,
 					int (*cmp)(), void (*free_fct)(void *));
+void			ft_putnbr_base_fd(size_t n, unsigned int base, int fd);
 
 #endif

@@ -15,16 +15,17 @@ SRCS		= ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c \
 			  ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c \
 			  ft_lstmap.c ft_numlen.c ft_putnstr_fd.c ft_strcmp.c \
 			  ft_realloc.c ft_free_tokens.c ft_tokens_len.c ft_lst_to_array.c \
-			  gnl/get_next_line.c gnl/get_next_line_utils.c ft_putstr.c \
-			  ft_putendl.c ft_isspace.c ft_lst_remove_if.c ft_str_tolower.c \
-			  ft_free_ntokens.c ft_putchar.c ft_lst_at.c
+			  ft_putstr.c ft_putendl.c ft_isspace.c ft_lst_remove_if.c \
+			  ft_str_tolower.c ft_free_ntokens.c ft_putchar.c ft_lst_at.c \
+			  ft_putnbr_base_fd.c
 
 OBJS		= $(SRCS:.c=.o)
 
 CFLAGS		= -Wall -Wextra -Werror
-DEPS		= libft.h
 
-.c.o:		$(DEPS)
+all:		$(NAME)
+
+.c.o:
 			$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
 
 $(NAME):	$(OBJS)
@@ -37,7 +38,5 @@ fclean:		clean
 			$(RM) $(NAME)
 
 re:			fclean all
-
-all:		$(NAME)
 
 .PHONY: clean fclean re all
