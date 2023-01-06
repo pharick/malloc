@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_malloc.h"
+#include "malloc.h"
 
 t_heap_type		get_heap_type(size_t block_size)
 {
@@ -87,4 +87,41 @@ t_heap		*get_heap(const size_t block_size)
 
 	}
 	return (heap);
+}
+
+static bool	is_last_preallocated(t_heap *heap)
+{
+	t_heap		*current_heap;
+	bool		first;
+
+	current_heap = g_heap_list;
+	if (heap->type == LARGE)
+		return (false);
+	first = false;
+	while (current_heap)
+	{
+		if (current_heap->type == heap->type)
+		{
+			if (first)
+				return (false);
+			else
+				first = true;
+		}
+		current_heap = current_heap->next;
+	}
+	return (true);
+}
+
+void		delete_heap(t_heap *heap)
+{
+	if (heap->prev)
+		heap->prev->next = heap->next;
+	if (heap->next)
+		heap->next->prev = heap->prev;
+	if (!is_last_preallocated(heap))
+	{
+		if (heap == g_heap_list)
+			g_heap_list = heap->next;
+		munmap(heap, heap->total_size);
+	}
 }

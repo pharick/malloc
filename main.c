@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include <stdio.h>
-#include "ft_malloc.h"
+#include "malloc.h"
 
 int	main(void)
 {
@@ -23,5 +23,6 @@ int	main(void)
 	str[4] = 'o';
 	str[5] = '\0';
 	printf("%s\n", str);
+	free(str);
 	return (0);
 }

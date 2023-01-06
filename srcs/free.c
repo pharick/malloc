@@ -10,33 +10,34 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_malloc.h"
-
-void		search_block(t_heap *heap_list, void *ptr, t_heap **heap_result, t_block **block_result)
-{
-	t_block	*block;
-
-	block = NULL;
-	while (heap)
-	{
-		block = (t_block *
-	}
-}
+#include "malloc.h"
 
 static void	free_impl(void *ptr)
 {
 	t_heap	*heap;
 	t_block	*block;
-	t_block	*merged_block;
 
-	heap = g_heap_list;
-	if (!ptr || !heap)
+	if (!ptr || !g_heap_list)
 		return ;
-
+	search_block(g_heap_list, ptr, &heap, &block);
+	if (!heap || !block)
+		return ;
+	block->freed = true;
+	block = merge_block(heap, block);
+	if (block->freed && !block->next)
+	{
+		if (block->prev)
+			block->prev->next = NULL;
+		heap->free_size += block->data_size + sizeof(t_block);
+		heap->block_count--;
+		if (heap->block_count <= 0)
+			delete_heap(heap);
+	}
 }
 
 void		free(void *ptr)
 {
+	ft_putstr("free\n");
 	pthread_mutex_lock(&g_ft_malloc_mutex);
 	free_impl(ptr);
 	pthread_mutex_unlock(&g_ft_malloc_mutex);

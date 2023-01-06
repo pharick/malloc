@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_malloc.h"
+#include "malloc.h"
 
 static void		init_block(t_block *block, size_t size)
 {
@@ -90,4 +90,53 @@ void			*append_new_block(t_heap *heap, size_t size)
 	heap->block_count++;
 	heap->free_size -= (new_block->data_size + sizeof(t_block));
 	return ((void *)SHIFT_BLOCK_META(new_block));
+}
+
+void			search_block(t_heap *heap_list, void *ptr, t_heap **heap_result, t_block **block_result)
+{
+	t_heap	*heap;
+	t_block	*block;
+
+	*heap_result = NULL;
+	*block_result = NULL;
+	heap = heap_list;
+	while (heap)
+	{
+		block = (t_block *)SHIFT_HEAP_META(heap);
+		while (block)
+		{
+			if (SHIFT_BLOCK_META(block) == ptr)
+			{
+				*heap_result = heap;
+				*block_result = block;
+				return ;
+			}
+			block = block->next;
+		}
+		heap = heap->next;
+	}
+}
+
+t_block			*merge_block(t_heap *heap, t_block *block)
+{
+	if (!heap || !block)
+		return (NULL);
+	if (block->next && block->next->freed)
+	{
+		block->data_size += block->next->data_size + sizeof(t_block);
+		if (block->next->next)
+			block->next->next->prev = block;
+		block->next = block->next->next;
+		heap->block_count--;
+	}
+	if (block->prev && block->prev->freed)
+	{
+		block->prev->next = block->next;
+		if (block->next)
+			block->next->prev = block->prev;
+		block->prev->data_size += block->data_size + sizeof(t_block);
+		heap->block_count--;
+		return (block->prev);
+	}
+	return block;
 }

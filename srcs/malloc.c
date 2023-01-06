@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_malloc.h"
+#include "malloc.h"
 
 static void	*malloc_impl(size_t size)
 {
@@ -40,6 +40,7 @@ void		*malloc(size_t size)
 {
 	void	*result;
 
+	ft_putstr("malloc\n");
 	pthread_mutex_lock(&g_ft_malloc_mutex);
 	result = malloc_impl(size);
 	pthread_mutex_unlock(&g_ft_malloc_mutex);
