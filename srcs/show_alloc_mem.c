@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   show_alloc_mem.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: artemforkunov <artemforkunov@student.42    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/07 19:32:35 by artemforkun       #+#    #+#             */
+/*   Updated: 2023/01/07 19:32:59 by artemforkun      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "malloc.h"
 
 static t_heap	*get_last_heap(t_heap *heap)
@@ -53,7 +65,8 @@ static void	show_alloc_mem_impl(void)
 		else
 			ft_putstr("LARGE");
 		ft_putstr(" : 0x");
-		ft_putnbr_base_fd((size_t)(t_block *)SHIFT_HEAP_META(last_heap), 16, STDOUT_FILENO);
+		ft_putnbr_base_fd((size_t)(t_block *)SHIFT_HEAP_META(last_heap),
+			16, STDOUT_FILENO);
 		ft_putstr("\n");
 		total_size += print_blocks((t_block *)SHIFT_HEAP_META(last_heap));
 		last_heap = last_heap->prev;

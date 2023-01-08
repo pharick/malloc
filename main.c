@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbelva <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: artemforkunov <artemforkunov@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 09:46:21 by cbelva            #+#    #+#             */
-/*   Updated: 2023/01/05 16:50:27 by cbelva           ###   ########.fr       */
+/*   Updated: 2023/01/07 19:33:45 by artemforkun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,10 @@ int	main(void)
 	char	**strs;
 	int		i;
 	int		size;
-	
-	show_alloc_mem();
-	strs = (char**)malloc(sizeof(char **) * STR_COUNT);
-	show_alloc_mem();
 
+	show_alloc_mem();
+	strs = (char **)malloc(sizeof(char **) * STR_COUNT);
+	show_alloc_mem();
 	i = 0;
 	size = STR_LEN_START;
 	while (i < STR_COUNT)
@@ -36,7 +35,6 @@ int	main(void)
 		size += STR_LEN_STEP;
 		i++;
 	}
-
 	i = 0;
 	while (i < STR_COUNT)
 	{

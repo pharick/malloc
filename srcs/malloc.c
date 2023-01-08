@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   malloc.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbelva <cbelva@student.42.fr>              +#+  +:+       +#+        */
+/*   By: artemforkunov <artemforkunov@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 09:10:24 by cbelva            #+#    #+#             */
-/*   Updated: 2023/01/05 17:14:25 by cbelva           ###   ########.fr       */
+/*   Updated: 2023/01/07 19:42:57 by artemforkun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	*malloc_impl(size_t size)
 	t_block	*block;
 	void	*result;
 
-	if (!size)
+	if (size <= 0)
 		return (NULL);
 	size = (size + 15) & ~15;
 	find_block(size, &heap, &block);
