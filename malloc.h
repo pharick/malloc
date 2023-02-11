@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   malloc.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbelva <cbelva@student.42.fr>              +#+  +:+       +#+        */
+/*   By: artemforkunov <artemforkunov@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 17:24:48 by artemforkun       #+#    #+#             */
-/*   Updated: 2023/02/11 09:40:19 by cbelva           ###   ########.fr       */
+/*   Updated: 2023/02/11 10:51:07 by artemforkun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void					free_impl(void *ptr);
 void					*malloc(size_t size);
 void					free(void *ptr);
 void					show_alloc_mem(void);
+void					show_alloc_mem_ex(void);
 void					*realloc(void *ptr, size_t size);
 
 #endif // MALLOC_H

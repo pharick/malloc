@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   show_alloc_mem.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbelva <cbelva@student.42.fr>              +#+  +:+       +#+        */
+/*   By: artemforkunov <artemforkunov@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 19:32:35 by artemforkun       #+#    #+#             */
-/*   Updated: 2023/02/11 09:40:51 by cbelva           ###   ########.fr       */
+/*   Updated: 2023/02/11 11:11:11 by artemforkun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,37 @@ static t_heap	*get_last_heap(t_heap *heap)
 	return (heap);
 }
 
-static size_t	print_blocks(t_block *block)
+static void	print_dump(char *start, char *end)
+{
+	size_t	i;
+
+	i = 0;
+	while (start < end)
+	{
+		if (*start < 16)
+		{
+			ft_putchar('0');
+		}
+		ft_putnbr_base_fd(*start, 16, 1);
+		if (++i % 16 == 0)
+		{
+			ft_putchar('\n');
+		}
+		else
+		{
+			ft_putchar(' ');
+		}
+		start++;
+	}
+}
+
+static size_t	print_blocks(t_block *block, bool ex)
 {
 	char	*start;
 	char	*end;
 	size_t	total;
 
+	(void)ex;
 	total = 0;
 	while (block)
 	{
@@ -42,12 +67,16 @@ static size_t	print_blocks(t_block *block)
 			ft_putstr(" octets\n");
 			total += block->data_size;
 		}
+		if (ex)
+		{
+			print_dump(start, end);
+		}
 		block = block->next;
 	}
 	return (total);
 }
 
-static void	show_alloc_mem_impl(void)
+static void	show_alloc_mem_impl(bool ex)
 {
 	t_heap	*first_heap;
 	t_heap	*last_heap;
@@ -68,7 +97,7 @@ static void	show_alloc_mem_impl(void)
 		ft_putnbr_base_fd((size_t)(t_block *)SHIFT_HEAP_META(last_heap),
 			16, STDOUT_FILENO);
 		ft_putstr("\n");
-		total_size += print_blocks((t_block *)SHIFT_HEAP_META(last_heap));
+		total_size += print_blocks((t_block *)SHIFT_HEAP_META(last_heap), ex);
 		last_heap = last_heap->prev;
 	}
 	ft_putstr("Total : ");
@@ -79,6 +108,13 @@ static void	show_alloc_mem_impl(void)
 void	show_alloc_mem(void)
 {
 	pthread_mutex_lock(&g_ft_malloc_mutex);
-	show_alloc_mem_impl();
+	show_alloc_mem_impl(false);
+	pthread_mutex_unlock(&g_ft_malloc_mutex);
+}
+
+void	show_alloc_mem_ex(void)
+{
+	pthread_mutex_lock(&g_ft_malloc_mutex);
+	show_alloc_mem_impl(true);
 	pthread_mutex_unlock(&g_ft_malloc_mutex);
 }

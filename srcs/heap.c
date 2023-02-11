@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heap.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbelva <cbelva@student.42.fr>              +#+  +:+       +#+        */
+/*   By: artemforkunov <artemforkunov@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 16:52:54 by cbelva            #+#    #+#             */
-/*   Updated: 2023/02/11 10:18:01 by cbelva           ###   ########.fr       */
+/*   Updated: 2023/02/11 10:59:00 by artemforkun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,6 @@ static t_heap	*allocate_heap(t_heap_type type, size_t block_size)
 	getrlimit(RLIMIT_DATA, &rlp);
 	if (heap_size > rlp.rlim_max)
 		return (NULL);
-	ft_putnbr_fd(heap_size, 1);
-	ft_putchar('\n');
 	heap = (t_heap *)mmap(NULL, heap_size, PROT_READ | PROT_WRITE,
 			MAP_PRIVATE | MAP_ANON, -1, 0);
 	if (heap == MAP_FAILED)
