@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   show_alloc_mem.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: artemforkunov <artemforkunov@student.42    +#+  +:+       +#+        */
+/*   By: cbelva <cbelva@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 19:32:35 by artemforkun       #+#    #+#             */
-/*   Updated: 2023/01/07 19:32:59 by artemforkun      ###   ########.fr       */
+/*   Updated: 2023/02/11 09:40:51 by cbelva           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

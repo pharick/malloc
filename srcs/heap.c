@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heap.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: artemforkunov <artemforkunov@student.42    +#+  +:+       +#+        */
+/*   By: cbelva <cbelva@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 16:52:54 by cbelva            #+#    #+#             */
-/*   Updated: 2023/02/10 21:10:39 by artemforkun      ###   ########.fr       */
+/*   Updated: 2023/02/11 10:18:01 by cbelva           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,15 @@ t_heap_type	get_heap_type(size_t block_size)
 static size_t	get_heap_size(size_t block_size)
 {
 	t_heap_type	heap_type;
+	size_t		size;
 
 	heap_type = get_heap_type(block_size);
 	if (heap_type == TINY)
 		return ((size_t)TINY_HEAP_SIZE);
 	if (heap_type == SMALL)
 		return ((size_t)SMALL_HEAP_SIZE);
-	return (block_size + sizeof(t_heap) + sizeof(t_block));
+	size = block_size + sizeof(t_heap) + sizeof(t_block) + SMALL_HEAP_SIZE - 1;
+	return (size - size % SMALL_HEAP_SIZE);
 }
 
 static t_heap	*find_allocated_heap(const t_heap *heap_list,
@@ -58,9 +60,8 @@ static t_heap	*allocate_heap(t_heap_type type, size_t block_size)
 	getrlimit(RLIMIT_DATA, &rlp);
 	if (heap_size > rlp.rlim_max)
 		return (NULL);
-	ft_putstr("allocated: ");
 	ft_putnbr_fd(heap_size, 1);
-	ft_putstr("\n");
+	ft_putchar('\n');
 	heap = (t_heap *)mmap(NULL, heap_size, PROT_READ | PROT_WRITE,
 			MAP_PRIVATE | MAP_ANON, -1, 0);
 	if (heap == MAP_FAILED)

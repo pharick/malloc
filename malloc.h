@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   malloc.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: artemforkunov <artemforkunov@student.42    +#+  +:+       +#+        */
+/*   By: cbelva <cbelva@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 17:24:48 by artemforkun       #+#    #+#             */
-/*   Updated: 2023/02/10 20:37:47 by artemforkun      ###   ########.fr       */
+/*   Updated: 2023/02/11 09:40:19 by cbelva           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@
 # define SHIFT_HEAP_META(start) ((void *)start + sizeof(t_heap))
 # define SHIFT_BLOCK_META(start) ((void *)start + sizeof(t_block))
 
-# define TINY_HEAP_SIZE (getpagesize())
+# define TINY_HEAP_SIZE (4 * getpagesize())
 # define TINY_BLOCK_SIZE (TINY_HEAP_SIZE / 128)
-# define SMALL_HEAP_SIZE (4 * getpagesize())
+# define SMALL_HEAP_SIZE (16 * getpagesize())
 # define SMALL_BLOCK_SIZE (SMALL_HEAP_SIZE / 128)
 
 typedef enum e_heap_type
