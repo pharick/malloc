@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   malloc.h                                        :+:      :+:    :+:   */
+/*   malloc.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbelva <cbelva@student.42.fr>              +#+  +:+       +#+        */
+/*   By: artemforkunov <artemforkunov@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/05 09:09:15 by cbelva            #+#    #+#             */
-/*   Updated: 2023/01/05 17:10:03 by cbelva           ###   ########.fr       */
+/*   Created: 2023/01/13 17:24:48 by artemforkun       #+#    #+#             */
+/*   Updated: 2023/02/10 20:37:47 by artemforkun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@
 # define SHIFT_HEAP_META(start) ((void *)start + sizeof(t_heap))
 # define SHIFT_BLOCK_META(start) ((void *)start + sizeof(t_block))
 
-# define TINY_HEAP_SIZE (4 * getpagesize())
+# define TINY_HEAP_SIZE (getpagesize())
 # define TINY_BLOCK_SIZE (TINY_HEAP_SIZE / 128)
-# define SMALL_HEAP_SIZE (16 * getpagesize())
+# define SMALL_HEAP_SIZE (4 * getpagesize())
 # define SMALL_BLOCK_SIZE (SMALL_HEAP_SIZE / 128)
 
 typedef enum e_heap_type
@@ -57,7 +57,7 @@ extern pthread_mutex_t	g_ft_malloc_mutex;
 extern t_heap			*g_heap_list;
 
 t_heap_type				get_heap_type(size_t block_size);
-t_heap					*get_heap(const size_t block_size);
+t_heap					*get_heap(size_t block_size);
 void					find_block(size_t size, t_heap **heap_result,
 							t_block **block_result);
 void					cut_block(t_block *block, size_t size, t_heap *heap);
@@ -66,8 +66,12 @@ void					search_block(t_heap *heap_list, void *ptr,
 							t_heap **heap_result, t_block **block_result);
 t_block					*merge_block(t_heap *heap, t_block *block);
 void					delete_heap(t_heap *heap);
+void					*malloc_impl(size_t size);
+void					free_impl(void *ptr);
+
 void					*malloc(size_t size);
 void					free(void *ptr);
 void					show_alloc_mem(void);
+void					*realloc(void *ptr, size_t size);
 
 #endif // MALLOC_H

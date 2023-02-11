@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbelva <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: artemforkunov <artemforkunov@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 17:11:47 by cbelva            #+#    #+#             */
-/*   Updated: 2023/01/05 17:26:45 by cbelva           ###   ########.fr       */
+/*   Updated: 2023/02/10 20:24:52 by artemforkun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
 
-static void	free_impl(void *ptr)
+void	free_impl(void *ptr)
 {
 	t_heap	*heap;
 	t_block	*block;
@@ -37,7 +37,6 @@ static void	free_impl(void *ptr)
 
 void	free(void *ptr)
 {
-	ft_putstr("free\n");
 	pthread_mutex_lock(&g_ft_malloc_mutex);
 	free_impl(ptr);
 	pthread_mutex_unlock(&g_ft_malloc_mutex);

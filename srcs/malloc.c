@@ -6,13 +6,13 @@
 /*   By: artemforkunov <artemforkunov@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 09:10:24 by cbelva            #+#    #+#             */
-/*   Updated: 2023/01/07 19:42:57 by artemforkun      ###   ########.fr       */
+/*   Updated: 2023/02/10 20:24:33 by artemforkun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
 
-static void	*malloc_impl(size_t size)
+void	*malloc_impl(size_t size)
 {
 	t_heap	*heap;
 	t_block	*block;
@@ -38,7 +38,6 @@ void	*malloc(size_t size)
 {
 	void	*result;
 
-	ft_putstr("malloc\n");
 	pthread_mutex_lock(&g_ft_malloc_mutex);
 	result = malloc_impl(size);
 	pthread_mutex_unlock(&g_ft_malloc_mutex);

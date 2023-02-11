@@ -7,22 +7,22 @@ NAME	= libft_malloc
 CC	= gcc
 RM	= rm -f
 
-_SRCS	= malloc.c free.c show_alloc_mem.c heap.c block.c globals.c
+_SRCS	= malloc.c free.c realloc.c show_alloc_mem.c heap.c block.c globals.c
 SRCS	= $(addprefix srcs/, $(_SRCS))
 
 OBJS	= $(SRCS:.c=.o)
 
 CFLAGS	= -Wall -Wextra -Werror
 
-all:	$(NAME)
+all:	$(NAME)_$(HOSTTYPE).so
 
 %.o: %.c
 	$(CC) $(CFLAGS) -I. -Ilibft -c $< -o $@
 
-$(NAME):	$(OBJS)
+$(NAME)_$(HOSTTYPE).so:	$(OBJS)
 	make -C libft
 	$(CC) -shared -fPIC -ldl -Llibft -lft -o $(NAME)_$(HOSTTYPE).so $(OBJS)
-	ln -s $(NAME)_$(HOSTTYPE).so $(NAME).so
+	ln -sf $(NAME)_$(HOSTTYPE).so $(NAME).so
 
 clean:
 	$(RM) $(OBJS)

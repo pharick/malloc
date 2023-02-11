@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_putnbr_base_fd.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbelva <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: artemforkunov <artemforkunov@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 13:46:25 by cbelva            #+#    #+#             */
-/*   Updated: 2020/11/05 14:51:01 by cbelva           ###   ########.fr       */
+/*   Updated: 2023/01/27 18:38:26 by artemforkun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_putnbr_base_fd(size_t n, unsigned int base, int fd)
 	char	*abc;
 	char	d;
 
-	abc = "0123456789ABCDEFGHIJKLMNOPQRSTUIVWXYZ";
+	abc = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	if (n < 0)
 	{
 		write(fd, "-", 1);

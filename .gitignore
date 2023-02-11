@@ -3,3 +3,6 @@
 **/*.so
 .vscode/
 test
+a.out
+test*
+!test*.c
