@@ -6,7 +6,7 @@
 /*   By: artemforkunov <artemforkunov@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 19:32:35 by artemforkun       #+#    #+#             */
-/*   Updated: 2023/02/11 11:11:11 by artemforkun      ###   ########.fr       */
+/*   Updated: 2023/03/03 15:02:20 by artemforkun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ static size_t	print_blocks(t_block *block, bool ex)
 	char	*end;
 	size_t	total;
 
-	(void)ex;
 	total = 0;
 	while (block)
 	{
